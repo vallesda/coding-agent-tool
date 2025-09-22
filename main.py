@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from google import genai
 from google.genai import types
 from prompts import system_prompt
-from functions.get_files_info import schema_get_files_info
+from call_function import available_functions
 
 def main():
     load_dotenv()
@@ -33,12 +33,6 @@ def main():
             parts=[types.Part(text=user_prompt)],
         )
     ]
-
-    available_functions = types.Tool(
-        function_declarations=[
-            schema_get_files_info,
-        ]
-    )
 
     client = genai.Client(api_key=api_key)
     response = client.models.generate_content(
